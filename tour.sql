@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 06, 2018 at 03:37 AM
+-- Generation Time: Mar 06, 2018 at 04:45 AM
 -- Server version: 5.6.37
 -- PHP Version: 5.6.31
 
@@ -28,12 +28,12 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `areas` (
   `id` int(11) unsigned NOT NULL,
-  `code` text NOT NULL,
-  `name` text NOT NULL,
-  `country` text NOT NULL,
-  `country_name` text NOT NULL,
-  `city` text NOT NULL,
-  `city_name` text NOT NULL,
+  `code` varchar(50) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `country` varchar(50) NOT NULL,
+  `country_name` varchar(50) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `city_name` varchar(50) NOT NULL,
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -66,11 +66,11 @@ INSERT INTO `migration` (`type`, `name`, `migration`) VALUES
 
 CREATE TABLE IF NOT EXISTS `tours` (
   `id` int(11) unsigned NOT NULL,
-  `code` text NOT NULL,
-  `image` text NOT NULL,
-  `title` text NOT NULL,
-  `gross_min` text NOT NULL,
-  `gross_max` text NOT NULL,
+  `code` varchar(50) NOT NULL,
+  `image` varchar(50) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `gross_min` int(11) NOT NULL,
+  `gross_max` int(11) NOT NULL,
   `area_id` int(11) NOT NULL,
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL
