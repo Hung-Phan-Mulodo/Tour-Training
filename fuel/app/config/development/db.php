@@ -5,13 +5,10 @@
 
 return array(
     'default' => array(
-        'type' => 'mysqli',
         'connection'  => array(
-            'hostname' => '127.0.0.1',
-            'port' => '3306',
-            'database' => 'tour',
+            'dsn'        => 'mysql:host=localhost;dbname=fuel_dev',
             'username'   => 'root',
-            'password'   => 'mysql',
+            'password'   => 'root',
         ),
     ),
 );

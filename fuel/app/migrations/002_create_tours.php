@@ -8,11 +8,11 @@ class Create_tours
 	{
 		\DBUtil::create_table('tours', array(
 			'id' => array('constraint' => 11, 'type' => 'int', 'auto_increment' => true, 'unsigned' => true),
-			'code' => array('type' => 'text'),
-			'image' => array('type' => 'text'),
-			'title' => array('type' => 'text'),
-			'gross_min' => array('type' => 'text'),
-			'gross_max' => array('type' => 'text'),
+			'code' => array('constraint' => 50, 'type' => 'varchar'),
+			'image' => array('constraint' => 50, 'type' => 'varchar'),
+			'title' => array('constraint' => 50, 'type' => 'varchar'),
+			'gross_min' => array('constraint' => 11, 'type' => 'int'),
+			'gross_max' => array('constraint' => 11, 'type' => 'int'),
 			'area_id' => array('constraint' => 11, 'type' => 'int'),
 			'created_at' => array('constraint' => 11, 'type' => 'int', 'null' => true),
 			'updated_at' => array('constraint' => 11, 'type' => 'int', 'null' => true),
