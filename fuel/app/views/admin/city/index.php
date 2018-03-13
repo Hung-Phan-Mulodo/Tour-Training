@@ -21,7 +21,7 @@
                 </div>
                 <div class="actions">
                     <a class="btn btn-primary" href="<?php echo Router::get('city_create') ?>">
-                        Thêm
+                        Insert
                     </a>
                 </div>
             </div>

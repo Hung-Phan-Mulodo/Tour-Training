@@ -33,6 +33,8 @@ return array(
     'tour/update?id=(:id)' => array('tour/update', 'name' => 'tour_update'),
     'tour/delete?id=(:id)' => array('tour/delete', 'name' => 'tour_delete'),
 
-    'tour-rest/country' => array('tourrest/country', 'name' => 'rest_country'),
-    'tour-rest/city' => array('tourrest/city', 'name' => 'rest_city'),
+    'api/internal/country' => array('tourapi/country', 'name' => 'api_country'),
+    'api/internal/city' => array('tourapi/city', 'name' => 'api_city'),
+    'api/internal/tour' => array('tourapi/tour', 'name' => 'api_tour'),
+    'api/internal/search' => array('tourapi/search', 'name' => 'api_search'),
 );

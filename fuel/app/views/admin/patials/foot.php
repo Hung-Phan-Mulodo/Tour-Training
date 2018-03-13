@@ -21,6 +21,7 @@
 <script src="<?php echo Asset::get_file('jquery.counterup.min.js', 'global', 'plugins/counterup') ?>" type="text/javascript"></script>
 <script src="<?php echo Asset::get_file('fullcalendar.min.js', 'global', 'plugins/fullcalendar') ?>" type="text/javascript"></script>
 <script src="<?php echo Asset::get_file('jquery.bootstrap-growl.js', 'global', 'plugins/bootstrap-growl') ?>" type="text/javascript"></script>
+<script src="<?php echo Asset::get_file('jquery.blockui.min.js', 'global', 'plugins') ?>" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN THEME GLOBAL SCRIPTS -->
 <script src="<?php echo Asset::get_file('app.min.js', 'global', '/scripts') ?>" type="text/javascript"></script>
@@ -64,29 +65,73 @@
         return true;
     }
     $('#area').change(function () {
-        $.get('<?php echo Router::get('rest_country') ?>?area_id='+ $('#area').val(), function (data, status) {
-            if(data.status){
-                console.log(data.data);
-                $('#country').empty();
-                $('#city').empty();
-                $('#country').append('<option value="0">-- Choose a country --</option>')
-                $('#city').append('<option value="0">-- Choose a city --</option>')
-                $.each(data.data, function (i) {
-                    $('#country').append('<option value="'+ data.data[i].id +'">'+ data.data[i].code +'</option>')
-                })
+        $.ajax({
+            type : 'get',
+            url : '<?php echo Router::get('api_country') ?>?area_id='+ $('#area').val(),
+            success : function (response) {
+                if(response.errcd == 0){
+                    $('#country').empty();
+                    $('#city').empty();
+                    $('#country').append('<option value="0">-- Choose a country --</option>')
+                    $('#city').append('<option value="0">-- Choose a city --</option>')
+                    $.each(response.data, function (i) {
+                        $('#country').append('<option value="'+ response.data[i].id +'">'+ response.data[i].code +'</option>')
+                    })
+                }
             }
-        })
+        });
     })
     $('#country').change(function () {
-        $.get('<?php echo Router::get('rest_city') ?>?country_id='+ $('#country').val(), function (data, status) {
-            if(data.status){
-                console.log(data.data);
-                $('#city').empty();
-                $('#city').append('<option value="0">-- Choose a city --</option>')
-                $.each(data.data, function (i) {
-                    $('#city').append('<option value="'+ data.data[i].id +'">'+ data.data[i].code +'</option>')
-                })
+        $.ajax({
+            type : 'get',
+            url : '<?php echo Router::get('api_city') ?>?country_id='+ $('#country').val(),
+            success : function (response) {
+                if(response.errcd == 0){
+                    $('#city').empty();
+                    $('#city').append('<option value="0">-- Choose a city --</option>')
+                    $.each(response.data, function (i) {
+                        $('#city').append('<option value="'+ response.data[i].id +'">'+ response.data[i].code +'</option>')
+                    })
+                }
             }
-        })
+        });
+    })
+    $('#btn-tour').click(function () {
+        var formData = {
+            tour_code : $('#tour_code').val(),
+            area : $('#area').val(),
+            country : $('#country').val(),
+            city : $('#city').val(),
+        }
+        App.blockUI({
+            boxed: true
+        });
+        $.ajax({
+            type : 'post',
+            url : '<?php echo Router::get('api_tour') ?>',
+            data : formData,
+            success : function (response) {
+                $('#table-tour').empty();
+                $.each(response.data, function (i) {
+                    $('#table-tour').append(
+                        `
+                            <tr>
+                                <td>`+ (i+1) +`</td>
+                                <td>`+ response.data[i].code +`</td>
+                                <td>`+ response.data[i].title.substring(0, 17) +`</td>
+                                <td>`+ response.data[i].gross_min +`</td>
+                                <td>`+ response.data[i].gross_max +`</td>
+                                <td><img src="`+ location.origin + `/assets/img/`+ response.data[i].image +`" height="100" width="200"></td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm" href="`+ location.origin + `/tour/edit?id=`+ response.data[i].id +`"><i class="fa fa-pencil"></i></a>
+                                    <a class="btn btn-danger btn-sm" href="`+ location.origin + `/tour/delete?id=`+ response.data[i].id +`"><i class="fa fa-close"></i></a>
+                                </td>
+                            </tr>
+                        `
+                    )
+                })
+                App.unblockUI();
+            }
+        });
     })
 </script>

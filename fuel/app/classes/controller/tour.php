@@ -31,8 +31,12 @@ class Controller_Tour extends Controller
     public function action_index()
     {
         // variables view
+        $tours = Model_Tour::find('all');
+        $areas = Model_Area::find('all');
+
         $data = array();
-        $data['tours'] = Model_Tour::find('all');
+        $data['tours'] = $tours;
+        $data['areas'] = $areas;
         $view = $this->assign_view();
         $view->content = View::forge('admin/tour/index', $data);
         return $view;
@@ -103,7 +107,7 @@ class Controller_Tour extends Controller
     {
         $data = array();
         $tour = Model_Tour::find($_GET['id']);
-        if(!$tour){
+        if (!$tour) {
             $view = $this->assign_error();
             $view->error = 404;
             $view->content = View::forge('admin/errors/404');
@@ -160,7 +164,7 @@ class Controller_Tour extends Controller
     public function action_delete()
     {
         $tour = Model_Tour::find($_GET['id']);
-        if(!$tour){
+        if (!$tour) {
             $view = $this->assign_error();
             $view->error = 404;
             $view->content = View::forge('admin/errors/404');

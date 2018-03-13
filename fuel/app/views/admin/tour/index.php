@@ -21,11 +21,47 @@
                 </div>
                 <div class="actions">
                     <a class="btn btn-primary" href="<?php echo Router::get('tour_create') ?>">
-                        Thêm
+                        Insert
                     </a>
                 </div>
             </div>
             <div class="portlet-body">
+                <div class="fixed-table-toolbar">
+                    <form class="form-horizontal" enctype="multipart/form-data">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <input class="form-control" type="text" placeholder="Tour Code" id="tour_code">
+                                </div>
+                                <div class="col-md-2">
+                                    <select class="form-control" id="area">
+                                        <option value="0">-- Choose a area --</option>
+                                        <?php
+                                        foreach ($areas as $key => $value):
+                                            ?>
+                                            <option value="<?php echo $value->id ?>"><?php echo $value->code ?></option>
+                                            <?php
+                                        endforeach;
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <select class="form-control" id="country">
+                                        <option value="0">-- Choose a country --</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <select class="form-control" id="city">
+                                        <option value="0">-- Choose a city --</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn blue" id="btn-tour"><i class="fa fa-search"></i> </button type="button">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
                 <div class="table-scrollable table-responsive">
                     <table class="table table-bordered table-hover">
                         <thead>
@@ -39,13 +75,13 @@
                             <th></th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="table-tour">
                         <?php
                         foreach ($tours as $key => $value): ?>
                             <tr>
                                 <td><?php echo $key ?></td>
                                 <td><?php echo $value->code ?></td>
-                                <td><?php echo substr($value->title,0, 50) ?></td>
+                                <td><?php echo substr($value->title,0, 49) ?></td>
                                 <td><?php echo $value->gross_min ?></td>
                                 <td><?php echo $value->gross_max ?></td>
                                 <td><?php echo Asset::img($value->image, array('width' => '200px', 'height' => '100px')) ?></td>
