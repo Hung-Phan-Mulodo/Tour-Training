@@ -32,9 +32,9 @@ class Controller_Area extends Controller
     {
         // variables view
         $data = array();
-        $data['areas'] = Model_Area::find('all');
+        $data['areas'] = Model_Area::getAllArea();
         $view = $this->assign_view();
-        $view->content = View::forge('admin/area/index', $data);
+        $view->content = View::forge('admin/area/index.tpl', $data);
         return $view;
     }
 
@@ -42,7 +42,7 @@ class Controller_Area extends Controller
     {
         // variables view
         $view = $this->assign_view();
-        $view->content = View::forge('admin/area/create');
+        $view->content = View::forge('admin/area/create.tpl');
         return $view;
     }
 
@@ -72,7 +72,7 @@ class Controller_Area extends Controller
     public function action_edit()
     {
         $data = array();
-        $area = Model_Area::find($_GET['id']);
+        $area = Model_Area::getAreaById($_GET['id']);
         if(!$area){
             $view = $this->assign_error();
             $view->error = 404;
@@ -82,14 +82,14 @@ class Controller_Area extends Controller
         $data['area'] = $area;
 
         $view = $this->assign_view();
-        $view->content = View::forge('admin/area/edit', $data);
+        $view->content = View::forge('admin/area/edit.tpl', $data);
         return $view;
     }
 
     public function action_update()
     {
         if (Input::method() == 'POST') {
-            $area = Model_Area::find($_GET['id']);
+            $area = Model_Area::getAreaById($_GET['id']);
             $area->code = $_POST['code'];
             $area->name = $_POST['name'];
 
@@ -102,7 +102,7 @@ class Controller_Area extends Controller
 
     public function action_delete()
     {
-        $area = Model_Area::find($_GET['id']);
+        $area = Model_Area::getAreaById($_GET['id']);
         if(!$area){
             $view = $this->assign_error();
             $view->error = 404;

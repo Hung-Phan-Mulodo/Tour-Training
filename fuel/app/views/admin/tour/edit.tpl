@@ -4,7 +4,7 @@
         <div class="page-bar x_panel">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="index.php">Home</a>
+                    <a href="index.tpl">Home</a>
                     <i class="fa fa-circle"></i>
                 </li>
                 <li>
@@ -23,30 +23,30 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal" role="form" method="post" action="<?php echo Router::get('tour_update', array('id' => $tour->id)) ?>" enctype="multipart/form-data">
+                    <form class="form-horizontal" role="form" method="post" action="{Router::get('tour_update', ['id' => $tour->id])}" enctype="multipart/form-data">
                         <div class="form-body">
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Code</label>
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control" placeholder="Enter text" name="code" value="<?php echo $tour->code ?>">
+                                    <input type="text" class="form-control" placeholder="Enter text" name="code" value="{$tour->code}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Title</label>
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control" placeholder="Enter text" name="title" value="<?php echo $tour->title ?>">
+                                    <input type="text" class="form-control" placeholder="Enter text" name="title" value="{$tour->title}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Gross min</label>
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control" placeholder="Enter text" name="gross_min" value="<?php echo $tour->gross_min ?>" onkeypress="return isNumberKey(event)">
+                                    <input type="text" class="form-control" placeholder="Enter text" name="gross_min" value="{$tour->gross_min}" onkeypress="return isNumberKey(event)">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Gross max</label>
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control" placeholder="Enter text" name="gross_max" value="<?php echo $tour->gross_max ?>" onkeypress="return isNumberKey(event)">
+                                    <input type="text" class="form-control" placeholder="Enter text" name="gross_max" value="{$tour->gross_max}" onkeypress="return isNumberKey(event)">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -54,17 +54,13 @@
                                 <div class="col-md-5">
                                     <select class="form-control" name="area_id" id="area">
                                         <option value="0">-- Choose a area --</option>
-                                        <?php
-                                        foreach ($areas as $key => $value):
-                                            if ($value->id == $tour->area_id){
-                                            ?>
-                                                <option value="<?php echo $value->id ?>" selected><?php echo $value->code ?></option>
-                                            <?php } else { ?>
-                                                <option value="<?php echo $value->id ?>"><?php echo $value->code ?></option>
-                                        <?php
-                                            }
-                                        endforeach;
-                                        ?>
+                                        {foreach $areas as $key => $value}
+                                            {if $value->id == $tour->area_id}
+                                                <option value="{$value->id}" selected>{$value->code}</option>
+                                            {else}
+                                                <option value="{$value->id}">{$value->code}</option>
+                                            {/if}
+                                        {/foreach}
                                     </select>
                                 </div>
                             </div>
@@ -73,17 +69,13 @@
                                 <div class="col-md-5">
                                     <select class="form-control" name="country_id" id="country">
                                         <option value="0">-- Choose a country --</option>
-                                        <?php
-                                        foreach ($countries as $key => $value):
-                                            if ($value->id == $tour->country_id){
-                                                ?>
-                                                <option value="<?php echo $value->id ?>" selected><?php echo $value->code ?></option>
-                                            <?php } else { ?>
-                                                <option value="<?php echo $value->id ?>"><?php echo $value->code ?></option>
-                                                <?php
-                                            }
-                                        endforeach;
-                                        ?>
+                                        {foreach $countries as $key => $value}
+                                            {if $value->id == $tour->country_id}
+                                                <option value="{$value->id}" selected>{$value->code}</option>
+                                            {else}
+                                                <option value="{$value->id}">{$value->code}</option>
+                                            {/if}
+                                        {/foreach}
                                     </select>
                                 </div>
                             </div>
@@ -92,17 +84,13 @@
                                 <div class="col-md-5">
                                     <select class="form-control" name="city_id" id="city">
                                         <option value="0">-- Choose a city --</option>
-                                        <?php
-                                        foreach ($cities as $key => $value):
-                                            if ($value->id == $tour->city_id){
-                                                ?>
-                                                <option value="<?php echo $value->id ?>" selected><?php echo $value->name ?></option>
-                                            <?php } else { ?>
-                                                <option value="<?php echo $value->id ?>"><?php echo $value->name ?></option>
-                                                <?php
-                                            }
-                                        endforeach;
-                                        ?>
+                                        {foreach $cities as $key => $value}
+                                            {if $value->id == $tour->city_id}
+                                                <option value="{$value->id}" selected>{$value->code}</option>
+                                            {else}
+                                                <option value="{$value->id}">{$value->code}</option>
+                                            {/if}
+                                        {/foreach}
                                     </select>
                                 </div>
                             </div>
@@ -111,15 +99,11 @@
                                 <div class="col-md-5">
                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                         <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                            <?php
-                                                if ($tour->image == ''):
-                                            ?>
+                                                {if $tour->image == ''}
                                                 <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="">
-                                            <?php
-                                                else:
-                                                    echo Asset::img($tour->image);
-                                                endif;
-                                            ?>
+                                                {else}
+                                                    {Asset::img($tour->image)}
+                                                {/if}
                                         </div>
                                         <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 10px;"></div>
                                         <div>
@@ -140,7 +124,7 @@
                             <div class="row">
                                 <div class="col-md-offset-3 col-md-9">
                                     <button type="submit" class="btn green">Submit</button>
-                                    <a class="btn default" href="<?php echo Router::get('tour') ?>">Cancel</a>
+                                    <a class="btn default" href="{Router::get('tour')}">Cancel</a>
                                 </div>
                             </div>
                         </div>

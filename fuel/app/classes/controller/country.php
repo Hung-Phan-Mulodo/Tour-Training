@@ -32,28 +32,22 @@ class Controller_Country extends Controller
     {
         // variables view
         $data = array();
-        $countries = Model_Country::find('all');
 
-        foreach ($countries as $country){
-            $area = Model_Area::find($country->area_id);
-            $country->area_code = $area['code'];
-        }
-
-        $data['countries'] = $countries;
+        $data['countries'] = Model_Country::getAllCountry();
         $view = $this->assign_view();
-        $view->content = View::forge('admin/country/index', $data);
+        $view->content = View::forge('admin/country/index.tpl', $data);
         return $view;
     }
 
     public function action_create()
     {
         // variables view
-        $areas = Model_Area::find('all');
+        $areas = Model_Area::getAllArea();
 
         $data = array();
         $data['areas'] = $areas;
         $view = $this->assign_view();
-        $view->content = View::forge('admin/country/create', $data);
+        $view->content = View::forge('admin/country/create.tpl', $data);
         return $view;
     }
 
@@ -85,27 +79,27 @@ class Controller_Country extends Controller
     public function action_edit()
     {
         $data = array();
-        $country = Model_Country::find($_GET['id']);
+        $country = Model_Country::getCountryById($_GET['id']);
         if(!$country){
             $view = $this->assign_error();
             $view->error = 404;
             $view->content = View::forge('admin/errors/404');
             return $view;
         }
-        $areas = Model_Area::find('all');
+        $areas = Model_Area::getAllArea();
 
         $data['areas'] = $areas;
         $data['country'] = $country;
 
         $view = $this->assign_view();
-        $view->content = View::forge('admin/country/edit', $data);
+        $view->content = View::forge('admin/country/edit.tpl', $data);
         return $view;
     }
 
     public function action_update()
     {
         if (Input::method() == 'POST') {
-            $country = Model_Country::find($_GET['id']);
+            $country = Model_Country::getCountryById($_GET['id']);
             $country->code = $_POST['code'];
             $country->name = $_POST['name'];
             $country->area_id = $_POST['area_id'];
@@ -119,7 +113,7 @@ class Controller_Country extends Controller
 
     public function action_delete()
     {
-        $country = Model_Country::find($_GET['id']);
+        $country = Model_Country::getCountryById($_GET['id']);
         if(!$country){
             $view = $this->assign_error();
             $view->error = 404;

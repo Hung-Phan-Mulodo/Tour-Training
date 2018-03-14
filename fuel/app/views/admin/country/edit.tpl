@@ -23,18 +23,18 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal" role="form" method="post" action="<?php echo Router::get('country_update', array('id' => $country->id)) ?>">
+                    <form class="form-horizontal" role="form" method="post" action="{Router::get('country_update', ['id' => $country->id])}">
                         <div class="form-body">
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Code</label>
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control" placeholder="Enter text" name="code" value="<?php echo $country->code ?>">
+                                    <input type="text" class="form-control" placeholder="Enter text" name="code" value="{$country->code}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Name</label>
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control" placeholder="Enter text" name="name" value="<?php echo $country->name ?>">
+                                    <input type="text" class="form-control" placeholder="Enter text" name="name" value="{$country->name}">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -42,17 +42,13 @@
                                 <div class="col-md-5">
                                     <select class="form-control" name="area_id">
                                         <option value="0">-- Choose a area --</option>
-                                        <?php
-                                        foreach ($areas as $key => $value):
-                                            if ($value->id == $country->area_id){
-                                                ?>
-                                                <option value="<?php echo $value->id ?>" selected><?php echo $value->code ?></option>
-                                            <?php } else { ?>
-                                                <option value="<?php echo $value->id ?>"><?php echo $value->code ?></option>
-                                                <?php
-                                            }
-                                        endforeach;
-                                        ?>
+                                        {foreach $areas as $key => $value}
+                                            {if $value->id == $country->area_id}
+                                                <option value="{$value->id}" selected>{$value->code}</option>
+                                            {else}
+                                                <option value="{$value->id}">{$value->code}</option>
+                                            {/if}
+                                        {/foreach}
                                     </select>
                                 </div>
                             </div>
@@ -61,7 +57,7 @@
                             <div class="row">
                                 <div class="col-md-offset-3 col-md-9">
                                     <button type="submit" class="btn green">Submit</button>
-                                    <a class="btn default" href="<?php echo Router::get('country') ?>">Cancel</a>
+                                    <a class="btn default" href="{Router::get('country')}">Cancel</a>
                                 </div>
                             </div>
                         </div>

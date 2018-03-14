@@ -28,33 +28,34 @@ class Controller_Tour extends Controller
      * @access  public
      * @return  Response
      */
+
     public function action_index()
     {
         // variables view
-        $tours = Model_Tour::find('all');
-        $areas = Model_Area::find('all');
+        $tours = Model_Tour::getAllTour();
+        $areas = Model_Area::getAllArea();
 
         $data = array();
         $data['tours'] = $tours;
         $data['areas'] = $areas;
         $view = $this->assign_view();
-        $view->content = View::forge('admin/tour/index', $data);
+        $view->content = View::forge('admin/tour/index.tpl', $data);
         return $view;
     }
 
     public function action_create()
     {
         // variables view
-        $areas = Model_Area::find('all');
-        $cities = Model_City::find('all');
-        $countries = Model_Country::find('all');
+        $areas = Model_Area::getAllArea();
+        $cities = Model_City::getAllCity();
+        $countries = Model_Country::getAllCountry();
 
         $data = array();
         $data['areas'] = $areas;
         $data['cities'] = $cities;
         $data['countries'] = $countries;
         $view = $this->assign_view();
-        $view->content = View::forge('admin/tour/create', $data);
+        $view->content = View::forge('admin/tour/create.tpl', $data);
         return $view;
     }
 
@@ -106,16 +107,16 @@ class Controller_Tour extends Controller
     public function action_edit()
     {
         $data = array();
-        $tour = Model_Tour::find($_GET['id']);
+        $tour = Model_Tour::getTourById($_GET['id']);
         if (!$tour) {
             $view = $this->assign_error();
             $view->error = 404;
             $view->content = View::forge('admin/errors/404');
             return $view;
         }
-        $areas = Model_Area::find('all');
-        $cities = Model_City::find('all');
-        $countries = Model_Country::find('all');
+        $areas = Model_Area::getAllArea();
+        $cities = Model_City::getAllCity();
+        $countries = Model_Country::getAllCountry();
 
         $data['areas'] = $areas;
         $data['cities'] = $cities;
@@ -123,7 +124,7 @@ class Controller_Tour extends Controller
         $data['tour'] = $tour;
 
         $view = $this->assign_view();
-        $view->content = View::forge('admin/tour/edit', $data);
+        $view->content = View::forge('admin/tour/edit.tpl', $data);
         return $view;
     }
 
@@ -163,7 +164,7 @@ class Controller_Tour extends Controller
 
     public function action_delete()
     {
-        $tour = Model_Tour::find($_GET['id']);
+        $tour = Model_Tour::getTourById($_GET['id']);
         if (!$tour) {
             $view = $this->assign_error();
             $view->error = 404;

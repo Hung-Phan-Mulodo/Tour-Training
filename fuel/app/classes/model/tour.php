@@ -31,7 +31,7 @@ class Model_Tour extends \Orm\Model
 
     protected static $_table_name = 'tours';
 
-    public function searchTour($requests)
+    public static function searchTour($requests)
     {
         $query = DB::select('tours.*',
             array('countries.name', 'country_name'), array('countries.code', 'country_code'),
@@ -53,6 +53,14 @@ class Model_Tour extends \Orm\Model
         $results = $query->execute();
 
         return $results->as_array();
+    }
+
+    public static function getAllTour(){
+        return Model_Tour::find('all');
+    }
+
+    public static function getTourById($tour_id){
+        return Model_Tour::find($tour_id);
     }
 
 }

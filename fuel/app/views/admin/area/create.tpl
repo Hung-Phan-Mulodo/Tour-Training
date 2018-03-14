@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal" role="form" method="post" action="<?php echo Router::get('area_add') ?>">
+                    <form class="form-horizontal" role="form" method="post" action="{Router::get('area_add')}">
                         <div class="form-body">
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Code</label>
@@ -42,7 +42,7 @@
                             <div class="row">
                                 <div class="col-md-offset-3 col-md-9">
                                     <button type="submit" class="btn green">Submit</button>
-                                    <a class="btn default" href="<?php echo Router::get('area') ?>">Cancel</a>
+                                    <a class="btn default" href="{Router::get('area')}">Cancel</a>
                                 </div>
                             </div>
                         </div>

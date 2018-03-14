@@ -20,7 +20,7 @@
                     <span class="caption-subject bold uppercase">Area</span>
                 </div>
                 <div class="actions">
-                    <a class="btn btn-primary" href="<?php echo Router::get('area_create') ?>">
+                    <a class="btn btn-primary" href="{Router::get('area_create')}">
                         Insert
                     </a>
                 </div>
@@ -37,19 +37,17 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            foreach ($areas as $key => $value): ?>
+                            {foreach $areas as $key => $value}
                                 <tr>
-                                    <td><?php echo $key ?></td>
-                                    <td><?php echo $value->code ?></td>
-                                    <td><?php echo $value->name ?></td>
+                                    <td>{$key}</td>
+                                    <td>{$value->code}</td>
+                                    <td>{$value->name}</td>
                                     <td>
-                                        <a class="btn btn-primary btn-sm" href="<?php echo Router::get('area_edit', array('id' => $value->id)) ?>"><i class="fa fa-pencil"></i></a>
-                                        <a class="btn btn-danger btn-sm" href="<?php echo Router::get('area_delete', array('id' => $value->id)) ?>"><i class="fa fa-close"></i></a>
+                                        <a class="btn btn-primary btn-sm" href="{Router::get('area_edit', ['id' => $value->id])}"><i class="fa fa-pencil"></i></a>
+                                        <a class="btn btn-danger btn-sm" href="{Router::get('area_delete', ['id' => $value->id])}"><i class="fa fa-close"></i></a>
                                     </td>
                                 </tr>
-                            <?php endforeach;
-                            ?>
+                            {/foreach}
                         </tbody>
                     </table>
                 </div>

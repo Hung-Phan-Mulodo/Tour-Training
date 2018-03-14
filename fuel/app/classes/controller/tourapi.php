@@ -21,7 +21,7 @@
  */
 class Controller_TourApi extends Controller_Rest
 {
-
+    protected $format = 'json';
     /**
      * The basic welcome message
      *
@@ -31,9 +31,7 @@ class Controller_TourApi extends Controller_Rest
 
     public function action_country()
     {
-        $this->format = 'json';
-        $country = new Model_Country();
-        $data = $country->getCountryByAreaId($_GET['area_id']);
+        $data = Model_Country::getCountryByAreaId($_GET['area_id']);
         return $this->response(array(
             'errcd' => 0,
             'data' => $data,
@@ -42,9 +40,7 @@ class Controller_TourApi extends Controller_Rest
 
     public function action_city()
     {
-        $this->format = 'json';
-        $city = new Model_City();
-        $data = $city->getCityByCountryId($_GET['country_id']);
+        $data = Model_City::getCityByCountryId($_GET['country_id']);
         return $this->response(array(
             'errcd' => 0,
             'data' => $data,
@@ -53,8 +49,6 @@ class Controller_TourApi extends Controller_Rest
 
     public function action_tour()
     {
-        $this->format = 'json';
-
         foreach ($_POST as $key => $value) {
             if ($key == 'tour_code') {
                 if ($value == '') {
@@ -82,11 +76,7 @@ class Controller_TourApi extends Controller_Rest
 
     public function action_search()
     {
-        $this->format = 'json';
-
-        $tour = new Model_Tour();
-
-        $data = $tour->searchTour($_POST);
+        $data = Model_Tour::searchTour($_POST);
 
         return $data;
     }

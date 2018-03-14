@@ -24,10 +24,25 @@ class Model_City extends \Orm\Model
 
     protected static $_table_name = 'cities';
 
-    public function getCityByCountryId($country_id)
+    public static function getCityByCountryId($country_id)
     {
         $city = Model_City::query()->where('country_id', '=', $country_id)->get();
         return $city;
+    }
+
+    public static function getAllCity(){
+        $cities = Model_City::find('all');
+
+        foreach ($cities as $city){
+            $country = Model_Country::find($city->country_id);
+            $city->country_code = $country['code'];
+        }
+
+        return $cities;
+    }
+
+    public static function getCityById($city_id){
+        return Model_City::find($city_id);
     }
 
 }

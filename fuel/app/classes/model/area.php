@@ -25,4 +25,12 @@ class Model_Area extends \Orm\Model
 
     protected static $_table_name = 'areas';
 
+    public static function getAllArea(){
+        return Model_Area::find('all');
+    }
+
+    public static function getAreaById($area_id){
+        return Model_Area::find($area_id);
+    }
+
 }

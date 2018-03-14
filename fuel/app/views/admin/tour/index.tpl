@@ -20,7 +20,7 @@
                     <span class="caption-subject bold uppercase">Tour</span>
                 </div>
                 <div class="actions">
-                    <a class="btn btn-primary" href="<?php echo Router::get('tour_create') ?>">
+                    <a class="btn btn-primary" href="{Router::get('tour_create')}">
                         Insert
                     </a>
                 </div>
@@ -36,13 +36,9 @@
                                 <div class="col-md-2">
                                     <select class="form-control" id="tour_area">
                                         <option value="0">-- Choose a area --</option>
-                                        <?php
-                                        foreach ($areas as $key => $value):
-                                            ?>
-                                            <option value="<?php echo $value->id ?>"><?php echo $value->code ?></option>
-                                            <?php
-                                        endforeach;
-                                        ?>
+                                        {foreach $areas as $key => $value}
+                                            <option value="{$value->id}">{$value->code}</option>
+                                        {/foreach}
                                     </select>
                                 </div>
                                 <div class="col-md-2">
@@ -76,22 +72,20 @@
                         </tr>
                         </thead>
                         <tbody id="table-tour">
-                        <?php
-                        foreach ($tours as $key => $value): ?>
+                        {foreach $tours as $key => $value}
                             <tr>
-                                <td><?php echo $key ?></td>
-                                <td><?php echo $value->code ?></td>
-                                <td><?php echo $value->title ?></td>
-                                <td><?php echo $value->gross_min ?></td>
-                                <td><?php echo $value->gross_max ?></td>
-                                <td><?php echo Asset::img($value->image, array('width' => '200px', 'height' => '100px')) ?></td>
+                                <td>{$key}</td>
+                                <td>{$value->code}</td>
+                                <td>{$value->title}</td>
+                                <td>{$value->gross_min}</td>
+                                <td>{$value->gross_max}</td>
+                                <td>{Asset::img($value->image, ['width' => '200px', 'height' => '100px'])}</td>
                                 <td>
-                                    <a class="btn btn-primary btn-sm" href="<?php echo Router::get('tour_edit', array('id' => $value->id)) ?>"><i class="fa fa-pencil"></i></a>
-                                    <a class="btn btn-danger btn-sm" href="<?php echo Router::get('tour_delete', array('id' => $value->id)) ?>"><i class="fa fa-close"></i></a>
+                                    <a class="btn btn-primary btn-sm" href="{Router::get('tour_edit', ['id' => $value->id])}"><i class="fa fa-pencil"></i></a>
+                                    <a class="btn btn-danger btn-sm" href="{Router::get('tour_delete', ['id' => $value->id])}"><i class="fa fa-close"></i></a>
                                 </td>
                             </tr>
-                        <?php endforeach;
-                        ?>
+                        {/foreach}
                         </tbody>
                     </table>
                 </div>

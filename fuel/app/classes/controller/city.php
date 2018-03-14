@@ -32,27 +32,22 @@ class Controller_City extends Controller
     {
         // variables view
         $data = array();
-        $cities = Model_City::find('all');
-        foreach ($cities as $city){
-            $country = Model_Country::find($city->country_id);
-            $city->country_code = $country['code'];
-        }
 
-        $data['cities'] = $cities;
+        $data['cities'] = Model_City::getAllCity();
         $view = $this->assign_view();
-        $view->content = View::forge('admin/city/index', $data);
+        $view->content = View::forge('admin/city/index.tpl', $data);
         return $view;
     }
 
     public function action_create()
     {
         // variables view
-        $countries = Model_Country::find('all');
+        $countries = Model_Country::getAllCountry();
 
         $data = array();
         $data['countries'] = $countries;
         $view = $this->assign_view();
-        $view->content = View::forge('admin/city/create', $data);
+        $view->content = View::forge('admin/city/create.tpl', $data);
         return $view;
     }
 
@@ -84,27 +79,27 @@ class Controller_City extends Controller
     public function action_edit()
     {
         $data = array();
-        $city = Model_City::find($_GET['id']);
+        $city = Model_City::getCityById($_GET['id']);
         if(!$city){
             $view = $this->assign_error();
             $view->error = 404;
             $view->content = View::forge('admin/errors/404');
             return $view;
         }
-        $countries = Model_Country::find('all');
+        $countries = Model_Country::getAllCountry();
 
         $data['city'] = $city;
         $data['countries'] = $countries;
 
         $view = $this->assign_view();
-        $view->content = View::forge('admin/city/edit', $data);
+        $view->content = View::forge('admin/city/edit.tpl', $data);
         return $view;
     }
 
     public function action_update()
     {
         if (Input::method() == 'POST') {
-            $city = Model_City::find($_GET['id']);
+            $city = Model_City::getCityById($_GET['id']);
             $city->code = $_POST['code'];
             $city->name = $_POST['name'];
             $city->country_id = $_POST['country_id'];
@@ -118,7 +113,7 @@ class Controller_City extends Controller
 
     public function action_delete()
     {
-        $city = Model_City::find($_GET['id']);
+        $city = Model_City::getCityById($_GET['id']);
         if(!$city){
             $view = $this->assign_error();
             $view->error = 404;

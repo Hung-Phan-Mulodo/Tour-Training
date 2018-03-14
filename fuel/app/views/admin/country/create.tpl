@@ -8,7 +8,7 @@
                     <i class="fa fa-circle"></i>
                 </li>
                 <li>
-                    <span>City</span>
+                    <span>Country</span>
                 </li>
             </ul>
         </div>
@@ -19,11 +19,11 @@
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject font-dark sbold uppercase">City Create</span>
+                        <span class="caption-subject font-dark sbold uppercase">Country Create</span>
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal" role="form" method="post" action="<?php echo Router::get('city_add') ?>">
+                    <form class="form-horizontal" role="form" method="post" action="{Router::get('country_add')}">
                         <div class="form-body">
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Code</label>
@@ -38,17 +38,13 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label">Country</label>
+                                <label class="col-md-3 control-label">Area</label>
                                 <div class="col-md-5">
-                                    <select class="form-control" name="country_id">
-                                        <option value="0">-- Choose a country --</option>
-                                        <?php
-                                        foreach ($countries as $key => $value):
-                                            ?>
-                                            <option value="<?php echo $value->id ?>"><?php echo $value->code ?></option>
-                                            <?php
-                                        endforeach;
-                                        ?>
+                                    <select class="form-control" name="area_id">
+                                        <option value="0">-- Choose a area --</option>
+                                        {foreach $areas as $key => $value}
+                                            <option value="{$value->id}">{$value->code}</option>
+                                        {/foreach}
                                     </select>
                                 </div>
                             </div>
@@ -57,7 +53,7 @@
                             <div class="row">
                                 <div class="col-md-offset-3 col-md-9">
                                     <button type="submit" class="btn green">Submit</button>
-                                    <a class="btn default" href="<?php echo Router::get('city') ?>">Cancel</a>
+                                    <a class="btn default" href="{Router::get('country')}">Cancel</a>
                                 </div>
                             </div>
                         </div>

@@ -8,7 +8,7 @@
                     <i class="fa fa-circle"></i>
                 </li>
                 <li>
-                    <span>Country</span>
+                    <span>Area</span>
                 </li>
             </ul>
         </div>
@@ -19,37 +19,22 @@
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject font-dark sbold uppercase">Country Create</span>
+                        <span class="caption-subject font-dark sbold uppercase">Area Edit</span>
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal" role="form" method="post" action="<?php echo Router::get('country_add') ?>">
+                    <form class="form-horizontal" role="form" method="post" action="{Router::get('area_update', ['id' => $area->id])}">
                         <div class="form-body">
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Code</label>
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control" placeholder="Enter text" name="code">
+                                    <input type="text" class="form-control" placeholder="Enter text" name="code" value="{$area->code}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Name</label>
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control" placeholder="Enter text" name="name">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">Area</label>
-                                <div class="col-md-5">
-                                    <select class="form-control" name="area_id">
-                                        <option value="0">-- Choose a area --</option>
-                                        <?php
-                                        foreach ($areas as $key => $value):
-                                            ?>
-                                            <option value="<?php echo $value->id ?>"><?php echo $value->code ?></option>
-                                            <?php
-                                        endforeach;
-                                        ?>
-                                    </select>
+                                    <input type="text" class="form-control" placeholder="Enter text" name="name" value="{$area->name}">
                                 </div>
                             </div>
                         </div>
@@ -57,7 +42,7 @@
                             <div class="row">
                                 <div class="col-md-offset-3 col-md-9">
                                     <button type="submit" class="btn green">Submit</button>
-                                    <a class="btn default" href="<?php echo Router::get('country') ?>">Cancel</a>
+                                    <a class="btn default" href="{Router::get('area')}">Cancel</a>
                                 </div>
                             </div>
                         </div>
