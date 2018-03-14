@@ -65,43 +65,31 @@
         return true;
     }
     $('#area').change(function () {
-        $.ajax({
-            type : 'get',
-            url : '<?php echo Router::get('api_country') ?>?area_id='+ $('#area').val(),
-            success : function (response) {
-                if(response.errcd == 0){
-                    $('#country').empty();
-                    $('#city').empty();
-                    $('#country').append('<option value="0">-- Choose a country --</option>')
-                    $('#city').append('<option value="0">-- Choose a city --</option>')
-                    $.each(response.data, function (i) {
-                        $('#country').append('<option value="'+ response.data[i].id +'">'+ response.data[i].code +'</option>')
-                    })
-                }
-            }
-        });
+        getCountry();
     })
     $('#country').change(function () {
-        $.ajax({
-            type : 'get',
-            url : '<?php echo Router::get('api_city') ?>?country_id='+ $('#country').val(),
-            success : function (response) {
-                if(response.errcd == 0){
-                    $('#city').empty();
-                    $('#city').append('<option value="0">-- Choose a city --</option>')
-                    $.each(response.data, function (i) {
-                        $('#city').append('<option value="'+ response.data[i].id +'">'+ response.data[i].code +'</option>')
-                    })
-                }
-            }
-        });
+        getCity();
     })
-    $('#btn-tour').click(function () {
+    $('#tour_area').change(function () {
+        getTourCountry();
+        postTour();
+    })
+    $('#tour_country').change(function () {
+        getTourCity();
+        postTour();
+    })
+    $('#tour_city').change(function () {
+        postTour();
+    })
+    $('#btn_tour').click(function () {
+        postTour();
+    })
+    function postTour() {
         var formData = {
             tour_code : $('#tour_code').val(),
-            area : $('#area').val(),
-            country : $('#country').val(),
-            city : $('#city').val(),
+            area : $('#tour_area').val(),
+            country : $('#tour_country').val(),
+            city : $('#tour_city').val(),
         }
         App.blockUI({
             boxed: true
@@ -118,7 +106,7 @@
                             <tr>
                                 <td>`+ (i+1) +`</td>
                                 <td>`+ response.data[i].code +`</td>
-                                <td>`+ response.data[i].title.substring(0, 17) +`</td>
+                                <td>`+ response.data[i].title +`</td>
                                 <td>`+ response.data[i].gross_min +`</td>
                                 <td>`+ response.data[i].gross_max +`</td>
                                 <td><img src="`+ location.origin + `/assets/img/`+ response.data[i].image +`" height="100" width="200"></td>
@@ -133,5 +121,69 @@
                 App.unblockUI();
             }
         });
-    })
+    }
+    function getCountry() {
+        $('#country').empty();
+        $('#city').empty();
+        $('#country').append('<option value="0">-- Choose a country --</option>')
+        $('#city').append('<option value="0">-- Choose a city --</option>')
+        $.ajax({
+            type : 'get',
+            url : '<?php echo Router::get('api_country') ?>?area_id='+ $('#area').val(),
+            success : function (response) {
+                if(response.errcd == 0){
+                    $.each(response.data, function (i) {
+                        $('#country').append('<option value="'+ response.data[i].id +'">'+ response.data[i].code +'</option>')
+                    })
+                }
+            }
+        });
+    }
+    function getCity() {
+        $('#city').empty();
+        $('#city').append('<option value="0">-- Choose a city --</option>')
+        $.ajax({
+            type : 'get',
+            url : '<?php echo Router::get('api_city') ?>?country_id='+ $('#country').val(),
+            success : function (response) {
+                if(response.errcd == 0){
+                    $.each(response.data, function (i) {
+                        $('#city').append('<option value="'+ response.data[i].id +'">'+ response.data[i].code +'</option>')
+                    })
+                }
+            }
+        });
+    }
+    function getTourCountry() {
+        $('#tour_country').empty();
+        $('#tour_city').empty();
+        $('#tour_country').append('<option value="0">-- Choose a country --</option>')
+        $('#tour_city').append('<option value="0">-- Choose a city --</option>')
+        $.ajax({
+            type : 'get',
+            url : '<?php echo Router::get('api_country') ?>?area_id='+ $('#tour_area').val(),
+            success : function (response) {
+                if(response.errcd == 0){
+                    $.each(response.data, function (i) {
+                        $('#tour_country').append('<option value="'+ response.data[i].id +'">'+ response.data[i].code +'</option>')
+                    })
+                }
+            }
+        });
+    }
+    function getTourCity() {
+        $('#tour_city').empty();
+        $('#tour_city').append('<option value="0">-- Choose a city --</option>')
+        $.ajax({
+            type : 'get',
+            url : '<?php echo Router::get('api_city') ?>?country_id='+ $('#tour_country').val(),
+            success : function (response) {
+                if(response.errcd == 0){
+                    $.each(response.data, function (i) {
+                        $('#tour_city').append('<option value="'+ response.data[i].id +'">'+ response.data[i].code +'</option>')
+                    })
+                }
+            }
+        });
+    }
 </script>

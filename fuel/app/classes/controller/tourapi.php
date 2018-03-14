@@ -32,20 +32,22 @@ class Controller_TourApi extends Controller_Rest
     public function action_country()
     {
         $this->format = 'json';
-        $country = Model_Country::query()->where('area_id', '=', $_GET['area_id'])->get();
+        $country = new Model_Country();
+        $data = $country->getCountryByAreaId($_GET['area_id']);
         return $this->response(array(
             'errcd' => 0,
-            'data' => $country,
+            'data' => $data,
         ));
     }
 
     public function action_city()
     {
         $this->format = 'json';
-        $city = Model_City::query()->where('country_id', '=', $_GET['country_id'])->get();
+        $city = new Model_City();
+        $data = $city->getCityByCountryId($_GET['country_id']);
         return $this->response(array(
             'errcd' => 0,
-            'data' => $city,
+            'data' => $data,
         ));
     }
 
@@ -82,18 +84,10 @@ class Controller_TourApi extends Controller_Rest
     {
         $this->format = 'json';
 
-        $query = DB::select('*')->from('tours');
+        $tour = new Model_Tour();
 
-        foreach ($_POST as $key => $value) {
-            if ($key == 'tour_code') {
-                $query->where('code', 'like', "%$value%");
-            } else {
-                $query->where($key . '_id', '=', $value);
-            }
-        }
+        $data = $tour->searchTour($_POST);
 
-        $results = $query->execute();
-
-        return $results->as_array();
+        return $data;
     }
 }

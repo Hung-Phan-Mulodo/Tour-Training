@@ -24,4 +24,9 @@ class Model_City extends \Orm\Model
 
     protected static $_table_name = 'cities';
 
+    public function getCityByCountryId($country_id){
+        $city = Model_City::query()->where('country_id', '=', $country_id)->get();
+        return $city;
+    }
+
 }

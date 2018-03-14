@@ -34,7 +34,7 @@
                                     <input class="form-control" type="text" placeholder="Tour Code" id="tour_code">
                                 </div>
                                 <div class="col-md-2">
-                                    <select class="form-control" id="area">
+                                    <select class="form-control" id="tour_area">
                                         <option value="0">-- Choose a area --</option>
                                         <?php
                                         foreach ($areas as $key => $value):
@@ -46,17 +46,17 @@
                                     </select>
                                 </div>
                                 <div class="col-md-2">
-                                    <select class="form-control" id="country">
+                                    <select class="form-control" id="tour_country">
                                         <option value="0">-- Choose a country --</option>
                                     </select>
                                 </div>
                                 <div class="col-md-2">
-                                    <select class="form-control" id="city">
+                                    <select class="form-control" id="tour_city">
                                         <option value="0">-- Choose a city --</option>
                                     </select>
                                 </div>
                                 <div class="col-md-2">
-                                    <button type="button" class="btn blue" id="btn-tour"><i class="fa fa-search"></i> </button type="button">
+                                    <button type="button" class="btn blue" id="btn_tour"><i class="fa fa-search"></i> </button type="button">
                                 </div>
                             </div>
                         </div>
@@ -81,7 +81,7 @@
                             <tr>
                                 <td><?php echo $key ?></td>
                                 <td><?php echo $value->code ?></td>
-                                <td><?php echo substr($value->title,0, 49) ?></td>
+                                <td><?php echo $value->title ?></td>
                                 <td><?php echo $value->gross_min ?></td>
                                 <td><?php echo $value->gross_max ?></td>
                                 <td><?php echo Asset::img($value->image, array('width' => '200px', 'height' => '100px')) ?></td>
