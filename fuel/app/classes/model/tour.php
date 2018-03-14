@@ -31,11 +31,12 @@ class Model_Tour extends \Orm\Model
 
     protected static $_table_name = 'tours';
 
-    public function searchTour($requests){
+    public function searchTour($requests)
+    {
         $query = DB::select('tours.*',
-            array('countries.name','country_name'), array('countries.code', 'country_code'),
-            array('cities.name','city_name'), array('cities.code', 'city_code'),
-            array('areas.name','area_name'), array('areas.code', 'area_code'))
+            array('countries.name', 'country_name'), array('countries.code', 'country_code'),
+            array('cities.name', 'city_name'), array('cities.code', 'city_code'),
+            array('areas.name', 'area_name'), array('areas.code', 'area_code'))
             ->from('tours')
             ->join('countries', 'LEFT')->on('tours.country_id', '=', 'countries.id')
             ->join('cities', 'LEFT')->on('tours.city_id', '=', 'cities.id')
@@ -45,7 +46,7 @@ class Model_Tour extends \Orm\Model
             if ($key == 'tour_code') {
                 $query->where('tours.code', 'like', "%$value%");
             } else {
-                $query->where('tours.'. $key .'_id', '=', $value);
+                $query->where('tours.' . $key . '_id', '=', $value);
             }
         }
 
